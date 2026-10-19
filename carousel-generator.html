@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>30 分鐘一篇輪播</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  /* 版型：米白象牙編輯風，襯線標題＋金赭重點，單欄留白；同 jason-pages 落地頁 */
+  :root{
+    --paper:#F7F2E8; --paper2:#FBF8F1; --ink:#2b2720; --ink2:#5c564b;
+    --gold:#A9802E; --gold-soft:#C8A24A; --line:#e4dccb; --card:#fffdf8;
+    --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.8;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px}
+  .section{padding-block:38px}
+  .eyebrow{font-size:13px;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:22px}
+  h1{font-family:var(--serif);font-weight:900;font-size:clamp(27px,6.4vw,52px);line-height:1.24;
+    letter-spacing:.3px;text-wrap:balance}
+  h1 .g{color:var(--gold)}
+  .lede-sub{font-family:var(--serif);font-weight:700;color:var(--gold);font-size:clamp(17px,3.6vw,21px);
+    margin:20px 0 26px}
+  .lede p{color:var(--ink2);font-size:16.5px}
+  header.hero{padding-top:64px;padding-bottom:10px}
+  .stats{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;margin:36px 0}
+  .stat{flex:1;min-width:84px;text-align:center}
+  .stat .n{font-family:var(--serif);font-weight:900;font-size:clamp(32px,8vw,44px);color:var(--gold);line-height:1}
+  .stat .l{font-size:12.5px;color:var(--ink2);margin-top:8px;letter-spacing:.02em}
+  .sep{align-self:center;color:var(--gold-soft);font-size:18px}
+  .author{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:14px;padding:24px 26px;margin:6px 0 10px}
+  .author .nm{font-family:var(--serif);font-weight:700;font-size:18px;margin-bottom:8px}
+  .author .nm span{color:var(--gold);font-family:var(--sans);font-size:15px;font-weight:700}
+  .author p{color:var(--ink2);font-size:15.5px}
+  .lbl{font-size:13px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:10px}
+  h2{font-family:var(--serif);font-weight:900;font-size:clamp(25px,5.2vw,34px);line-height:1.3;margin-bottom:6px}
+  .how p{color:var(--ink2);font-size:16px;margin-top:14px}
+  .how .tip{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:18px;font-size:15px;color:var(--ink2)}
+  .cmd{border-top:1px solid var(--line);padding-top:30px;margin-top:38px}
+  .cmd .no{font-family:var(--serif);font-weight:900;color:var(--gold-soft);font-size:40px;line-height:1}
+  .cmd .mins{display:inline-block;background:var(--paper2);border:1px solid var(--line);border-radius:999px;
+    font-size:12.5px;color:var(--gold);font-weight:700;padding:3px 12px;margin-bottom:6px;letter-spacing:.04em}
+  .cmd h3{font-family:var(--serif);font-weight:700;font-size:24px;margin:4px 0 4px}
+  .cmd .do{color:var(--ink2);font-size:15.5px;margin-bottom:16px}
+  .codebox{background:#282420;border-radius:12px;overflow:hidden;margin:14px 0}
+  .codebox .bar{display:flex;justify-content:space-between;align-items:center;
+    padding:9px 14px;background:#211d19;border-bottom:1px solid #352f28}
+  .codebox .bar span{color:#b9ad97;font-size:12px;letter-spacing:.1em;font-weight:600}
+  .codebox button{background:var(--gold);color:#241c08;border:0;border-radius:7px;
+    padding:5px 14px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .codebox button.done{background:#3f7a4a;color:#fff}
+  .codebox pre{margin:0;padding:16px 16px 18px;color:#efe7d6;font-family:var(--mono);
+    font-size:14px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+  .fill{margin-top:16px;font-size:15px;color:var(--ink2)}
+  .fill b{color:var(--ink);font-weight:700}
+  .result{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:14px}
+  .result .rl{font-size:12px;letter-spacing:.2em;color:var(--gold);font-weight:700;margin-bottom:10px}
+  .result ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .result li{font-size:15px;color:var(--ink);padding-left:18px;position:relative}
+  .result li::before{content:"—";position:absolute;left:0;color:var(--gold-soft)}
+  .cta{background:#282420;color:#f4ecdd;border-radius:18px;padding:34px 28px;margin:46px 0;text-align:center}
+  .cta h2{color:#fff;margin-bottom:10px}
+  .cta p{color:#c9bca3;font-size:15.5px;max-width:520px;margin:0 auto 22px}
+  .btn{display:inline-block;background:var(--gold);color:#241c08;font-weight:800;
+    font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none}
+  .nextwho{display:flex;flex-direction:column;gap:12px;margin:22px 0}
+  .nextwho .row{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:15.5px;color:var(--ink2)}
+  .getlist{list-style:none;margin:18px 0}
+  .getlist li{position:relative;padding:8px 0 8px 30px;font-size:16px;border-bottom:1px solid var(--line)}
+  .getlist li::before{content:"✳";position:absolute;left:0;color:var(--gold);font-weight:700}
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:34px 0 60px;text-align:center}
+  footer .fn{font-family:var(--serif);font-weight:700;font-size:17px}
+  footer .fh{color:var(--gold);font-weight:700;font-size:14px;margin:6px 0 16px}
+  footer .dis{color:#9a9384;font-size:12.5px;max-width:520px;margin:0 auto;line-height:1.7}
+  a{color:inherit}
+  .floatcta{position:fixed;right:28px;top:50%;transform:translateY(-50%);width:300px;z-index:40;
+    background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:16px;padding:24px 24px 26px;box-shadow:0 18px 50px -24px rgba(60,45,15,.45)}
+  .floatcta .ns{font-size:12px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:12px}
+  .floatcta h4{font-family:var(--serif);font-weight:900;font-size:21px;line-height:1.3;margin-bottom:12px}
+  .floatcta h4 .g{color:var(--gold)}
+  .floatcta p{color:var(--ink2);font-size:14px;line-height:1.75;margin-bottom:18px}
+  .floatcta .btn{display:block;text-align:center;font-size:14.5px;padding:13px 10px}
+  @media (max-width:1180px){ .floatcta{display:none} }
+  .topbar{display:none}
+  .topbar a{display:flex;align-items:center;justify-content:center;gap:8px;
+    text-decoration:none;color:#2a1d05;font-weight:800;font-size:15px;line-height:1.3;text-align:center}
+  .topbar .arr{font-weight:700}
+  @media (max-width:1180px){
+    .topbar{display:block;position:fixed;top:0;left:0;right:0;z-index:50;background:var(--gold);
+      padding:13px 16px;padding-top:calc(13px + env(safe-area-inset-top,0px));
+      box-shadow:0 6px 20px -8px rgba(60,45,15,.5)}
+    body{padding-top:52px}
+  }
+  @media (max-width:480px){
+    .stats{gap:4px}
+    .stat{min-width:0}
+    .sep{display:none}
+    .stat .l{font-size:11px;letter-spacing:0}
+  }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">想要整台生成器 <span class="arr">→</span> 加入 奇點研究所 × D11</a></div>
+<aside class="floatcta">
+  <div class="ns">NEXT STEP</div>
+  <h4>流程你會了<br><span class="g">生成器幫你更快</span></h4>
+  <p>這套流程讓你一篇 30 分鐘。要把選題、七張、封面接成一台按一下就跑的生成器，我在 Skool 帶你裝。</p>
+  <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+</aside>
+<div class="wrap">
+
+  <header class="hero section">
+    <div class="eyebrow">AI × 自媒體・輪播生成器</div>
+    <h1>不用拍片<br>30 分鐘一篇<br><span class="g">有流量的貼文</span></h1>
+    <div class="lede">
+      <p class="lede-sub">選題、角度、七張文案、封面，一條線做完。</p>
+      <p>想漲粉不一定要拍片。我開自媒體公司，現在大半貼文是輪播——一篇三十分鐘，一樣有人看、有人存。下面是我實際的四步流程，每步附我真的用的指令跟跑出來的樣子，你照著就能做一篇。</p>
+    </div>
+  </header>
+
+  <div class="wrap" style="padding:0">
+    <div class="stats">
+      <div class="stat"><div class="n">30</div><div class="l">分鐘・一篇輪播</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">4</div><div class="l">步・一條線做完</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">7</div><div class="l">張・一次生好</div></div>
+    </div>
+  </div>
+
+  <div class="author">
+    <div class="nm">傑森所長 <span>@jasonxtsai</span></div>
+    <p>我是 Jason，經營「傑森所長」，專注在「AI × 自媒體變現」。我把 AI 工具實際測過、拆解成可以直接套用的工作流，然後把過程公開。所有我發出去的東西，都是我自己在用的東西。沒在用的我不會寫。</p>
+  </div>
+
+  <section class="section how">
+    <div class="lbl">使用前</div>
+    <h2>一篇輪播，30 分鐘怎麼分配</h2>
+    <p>四步跑完就是一篇能發的輪播：<b>選題 10 分 → 定角度 5 分 → 寫七張 10 分 → 封面 5 分</b>。每步的 <b>＿＿</b> 換成你自己的東西，照順序走，不用從白紙開始。</p>
+    <div class="tip">⚠️ 生成器負責把草稿生出來，判斷還是你的。AI 給的是「地板」，挑哪個題、改成你的口氣，決定權在你手上。每天發得出去，比單篇做到完美更重要。</div>
+  </section>
+
+  <section class="section">
+    <div class="cmd" style="border-top:0;padding-top:0;margin-top:0">
+      <div class="no">01</div>
+      <div class="mins">約 10 分鐘</div>
+      <h3>選題：挑一個有人想點的痛點</h3>
+      <div class="do">先問 AI 你的受眾在煩什麼，從裡面挑一個你一看就知道會有人點的，一篇只做一個。</div>
+      <div class="codebox">
+        <div class="bar"><span>指令 ①</span><button data-copy>複製</button></div>
+        <pre>我做的是＿＿，受眾是＿＿。他們最近在搜什麼、在煩什麼？給我 10 個適合做成輪播的題目，每個標清楚戳的是痛點、好奇還是方法，按你覺得最值得先做的順序排。</pre>
+      </div>
+      <div class="fill">填空示範：做的是「<b>教剛起步的人用 AI 做內容</b>」，受眾是「<b>想做自媒體、沒時間沒團隊的人</b>」。</div>
+      <div class="result"><div class="rl">跑出來長這樣</div>
+        <ul>
+          <li>拍了片沒人看，問題可能不在你的臉（痛點）</li>
+          <li>一個人做內容，我這樣排一週的題（方法）</li>
+          <li>為什麼有人不出鏡也能漲粉？（好奇）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">02</div>
+      <div class="mins">約 5 分鐘</div>
+      <h3>定角度：先把封面那句寫出來</h3>
+      <div class="do">同一個題目先決定從哪個角度切，再寫封面那一句。這句要讓人願意停下來——先寫得出這句，再往下做。</div>
+      <div class="codebox">
+        <div class="bar"><span>指令 ②</span><button data-copy>複製</button></div>
+        <pre>這篇輪播我要講＿＿，給剛起步的人看。幫我想 3 個不同的切入角度，每個配一句封面大字（5–8 字、一眼看懂、帶一點情緒），標一下各自適合誰。</pre>
+      </div>
+      <div class="fill">填空示範：要講「<b>一個人也能把內容做完</b>」。</div>
+      <div class="result"><div class="rl">跑出來長這樣</div>
+        <ul>
+          <li>角度 A「省時間」→ 封面：拍片一整天？我 30 分鐘</li>
+          <li>角度 B「不用出鏡」→ 封面：不想露臉也能漲粉</li>
+          <li>角度 C「沒團隊」→ 封面：一個人，一套流程</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">03</div>
+      <div class="mins">約 10 分鐘</div>
+      <h3>寫七張：一張一個重點</h3>
+      <div class="do">角度定了，讓它一次寫七張，一張講一個重點、句子短。生出來先別照用，改成你會講的話。</div>
+      <div class="codebox">
+        <div class="bar"><span>指令 ③</span><button data-copy>複製</button></div>
+        <pre>用這個角度＿＿、這句封面＿＿，幫我寫一篇 7 張的輪播：第 1 張封面、第 2 張點出問題、中間 4 張一張一個重點、最後 1 張收尾加一句行動。句子短、像在跟人講話，不要官腔。</pre>
+      </div>
+      <div class="fill">填空示範：角度「<b>省時間</b>」、封面「<b>拍片一整天？我 30 分鐘</b>」。</div>
+      <div class="result"><div class="rl">跑出來長這樣</div>
+        <ul>
+          <li>P2：你花一整天拍一支片，發出去三百觀看</li>
+          <li>P3–P6：選題 → 角度 → 七張 → 封面，一步一張</li>
+          <li>P7：先發得出去，再談做得漂亮</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">04</div>
+      <div class="mins">約 5 分鐘</div>
+      <h3>封面大字：滑到你這格會不會停</h3>
+      <div class="do">文案好、封面爛一樣沒人點。把封面那句再磨一次，順便要配圖方向，套進你的版型就能發。</div>
+      <div class="codebox">
+        <div class="bar"><span>指令 ④</span><button data-copy>複製</button></div>
+        <pre>我的封面大字是＿＿。再給我 3 組替代寫法，每組 5–8 字、一眼看懂、帶一點情緒，並說每組配什麼畫面最抓人。</pre>
+      </div>
+      <div class="fill">填空示範：封面大字是「<b>拍片一整天？我 30 分鐘</b>」。</div>
+      <div class="result"><div class="rl">跑出來長這樣</div>
+        <ul>
+          <li>「不用拍片也有流量」→ 配：桌上手機、一排輪播成品</li>
+          <li>「一個人，一套流程」→ 配：深色底、單人剪影＋大字</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>流程你會了，剩下的是把它接成一台生成器</h2>
+    <p>這四步讓你一篇 30 分鐘。要把選題、角度、七張、封面接成一台「按一下就跑」的生成器，不該你每次重打指令。我在奇點研究所帶你把整台裝起來，裡面還有剪輯台跟那 5 個每天在用的指令。</p>
+    <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+  </section>
+
+  <section class="section">
+    <div class="lbl">下一步</div>
+    <h2>這些人進來最有感</h2>
+    <div class="nextwho">
+      <div class="row">想做自媒體，又不想花一整天拍片剪片的人</div>
+      <div class="row">一個人做內容、沒有團隊也沒有小編的你</div>
+      <div class="row">知道輪播會漲粉，卻每次卡在「不知道發什麼」的人</div>
+    </div>
+    <div class="lbl" style="margin-top:28px">進來你會拿到</div>
+    <ul class="getlist">
+      <li>一篇 30 分鐘的輪播生成器，選題到封面一條線</li>
+      <li>AI ＋ 自媒體的完整變現工作流，每週更新</li>
+      <li>剪輯台、5 個每天在用的指令，一個人也能把內容做完</li>
+      <li>一群跟你一樣、正在用 AI 翻身的人</li>
+    </ul>
+    <div style="text-align:center;margin-top:22px">
+      <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fn">傑森所長 @jasonxtsai</div>
+    <div class="fh">Instagram：@jasonxtsai　／　Threads：@jasonxtsai</div>
+    <div class="dis">※ AI 工具更新很快，這套流程反映的是撰寫當下的用法。實際效果依你的主題與填空而定；生成器只負責省時間，判斷與最終決策還是在你手上。</div>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pre = btn.closest('.codebox').querySelector('pre');
+      var txt = pre.innerText;
+      function ok(){ btn.textContent='已複製'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='複製'; btn.classList.remove('done'); },1600); }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(ok).catch(function(){ sel(pre); });
+      } else { sel(pre); }
+      function sel(node){ var r=document.createRange(); r.selectNodeContents(node); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); try{document.execCommand('copy'); ok();}catch(e){} }
+    });
+  });
+</script>
+</body>
+</html>
