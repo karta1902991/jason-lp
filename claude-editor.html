@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>用 Claude 剪片，改細節不燒 token</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F7F2E8; --paper2:#FBF8F1; --ink:#2b2720; --ink2:#5c564b;
+    --gold:#A9802E; --gold-soft:#C8A24A; --line:#e4dccb; --card:#fffdf8;
+    --ok:#3f7a4a; --no:#b4474a;
+    --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px}
+  .section{padding-block:38px}
+  .eyebrow{font-size:13px;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:22px}
+  h1{font-family:var(--serif);font-weight:900;font-size:clamp(27px,6.4vw,52px);line-height:1.24;letter-spacing:.3px;text-wrap:balance}
+  h1 .g{color:var(--gold)}
+  .lede-sub{font-family:var(--serif);font-weight:700;color:var(--gold);font-size:clamp(17px,3.6vw,21px);margin:20px 0 26px}
+  .lede p{color:var(--ink2);font-size:16.5px}
+  header.hero{padding-top:64px;padding-bottom:10px}
+  .stats{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;margin:36px 0}
+  .stat{flex:1;min-width:84px;text-align:center}
+  .stat .n{font-family:var(--serif);font-weight:900;font-size:clamp(30px,8vw,44px);color:var(--gold);line-height:1}
+  .stat .l{font-size:12.5px;color:var(--ink2);margin-top:8px;letter-spacing:.02em}
+  .sep{align-self:center;color:var(--gold-soft);font-size:18px}
+  .author{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:14px;padding:24px 26px;margin:6px 0 10px}
+  .author .nm{font-family:var(--serif);font-weight:700;font-size:18px;margin-bottom:8px}
+  .author .nm span{color:var(--gold);font-family:var(--sans);font-size:15px;font-weight:700}
+  .author p{color:var(--ink2);font-size:15.5px}
+  .lbl{font-size:13px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:10px}
+  h2{font-family:var(--serif);font-weight:900;font-size:clamp(25px,5.2vw,34px);line-height:1.3;margin-bottom:6px}
+  .how p{color:var(--ink2);font-size:16px;margin-top:14px}
+  .how .tip{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:18px;font-size:15px;color:var(--ink2)}
+  /* token 對比 */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  .cc{border-radius:14px;padding:20px 20px 22px;border:1px solid var(--line)}
+  .cc.bad{background:#fbf1f0;border-color:#edd3d2}
+  .cc.good{background:#f1f6f1;border-color:#d4e5d4}
+  .cc h4{font-family:var(--serif);font-weight:700;font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .cc.bad h4{color:var(--no)} .cc.good h4{color:var(--ok)}
+  .cc ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .cc li{font-size:14px;color:var(--ink);padding-left:20px;position:relative;line-height:1.5}
+  .cc.bad li::before{content:"🔥";position:absolute;left:0;font-size:12px}
+  .cc.good li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+  @media (max-width:560px){ .compare{grid-template-columns:1fr} }
+  /* 步驟 */
+  .step{border-top:1px solid var(--line);padding-top:26px;margin-top:30px;display:flex;gap:18px;align-items:flex-start}
+  .step .no{font-family:var(--serif);font-weight:900;color:var(--gold-soft);font-size:34px;line-height:1;min-width:46px}
+  .step .bd h3{font-family:var(--serif);font-weight:700;font-size:21px;margin-bottom:4px}
+  .step .bd p{color:var(--ink2);font-size:15.5px}
+  .badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;margin-top:10px}
+  .badge.use{background:#f6ecd8;color:var(--gold)}
+  .badge.free{background:#e6f1e6;color:var(--ok)}
+  .badge.opt{background:#efe9df;color:var(--ink2)}
+  .cta{background:#282420;color:#f4ecdd;border-radius:18px;padding:34px 28px;margin:46px 0;text-align:center}
+  .cta h2{color:#fff;margin-bottom:10px}
+  .cta p{color:#c9bca3;font-size:15.5px;max-width:520px;margin:0 auto 22px}
+  .btn{display:inline-block;background:var(--gold);color:#241c08;font-weight:800;font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none}
+  .nextwho{display:flex;flex-direction:column;gap:12px;margin:22px 0}
+  .nextwho .row{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:15.5px;color:var(--ink2)}
+  .getlist{list-style:none;margin:18px 0}
+  .getlist li{position:relative;padding:8px 0 8px 30px;font-size:16px;border-bottom:1px solid var(--line)}
+  .getlist li::before{content:"✳";position:absolute;left:0;color:var(--gold);font-weight:700}
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:34px 0 60px;text-align:center}
+  footer .fn{font-family:var(--serif);font-weight:700;font-size:17px}
+  footer .fh{color:var(--gold);font-weight:700;font-size:14px;margin:6px 0 16px}
+  footer .dis{color:#9a9384;font-size:12.5px;max-width:520px;margin:0 auto;line-height:1.7}
+  a{color:inherit}
+  .floatcta{position:fixed;right:28px;top:50%;transform:translateY(-50%);width:300px;z-index:40;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:16px;padding:24px 24px 26px;box-shadow:0 18px 50px -24px rgba(60,45,15,.45)}
+  .floatcta .ns{font-size:12px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:12px}
+  .floatcta h4{font-family:var(--serif);font-weight:900;font-size:21px;line-height:1.3;margin-bottom:12px}
+  .floatcta h4 .g{color:var(--gold)}
+  .floatcta p{color:var(--ink2);font-size:14px;line-height:1.75;margin-bottom:18px}
+  .floatcta .btn{display:block;text-align:center;font-size:14.5px;padding:13px 10px}
+  @media (max-width:1180px){ .floatcta{display:none} }
+  .topbar{display:none}
+  .topbar a{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:#2a1d05;font-weight:800;font-size:15px;line-height:1.3;text-align:center}
+  @media (max-width:1180px){
+    .topbar{display:block;position:fixed;top:0;left:0;right:0;z-index:50;background:var(--gold);padding:13px 16px;padding-top:calc(13px + env(safe-area-inset-top,0px));box-shadow:0 6px 20px -8px rgba(60,45,15,.5)}
+    body{padding-top:52px}
+  }
+  @media (max-width:480px){ .stats{gap:4px} .stat{min-width:0} .sep{display:none} .stat .l{font-size:11px;letter-spacing:0} }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">想裝這套剪輯台 <span>→</span> 加入 奇點研究所 × D11</a></div>
+<aside class="floatcta">
+  <div class="ns">NEXT STEP</div>
+  <h4>把剪輯台<br><span class="g">裝到你電腦</span></h4>
+  <p>AI 初剪＋手動調細節不燒 token，全程本機跑。整套怎麼接 Claude，我在 Skool 帶你裝。</p>
+  <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+</aside>
+<div class="wrap">
+
+  <header class="hero section">
+    <div class="eyebrow">AI × 自媒體・剪輯台</div>
+    <h1>用 Claude 剪片，<br>改細節 <span class="g">還不燒 token</span></h1>
+    <div class="lede">
+      <p class="lede-sub">市面上的 AI 剪輯，每改一次就燒一次 token。</p>
+      <p>我看過一堆 AI 剪輯台，共同的坑是：你每調一次字幕、換一次特效，它就再呼叫一次 AI，token 一直燒。我們這套，AI 只在「第一次初剪」用一次，之後你在工作台手動調字幕、特效、節奏，全部不吃 token。全程在你自己電腦跑、影片不上傳。</p>
+    </div>
+  </header>
+
+  <div class="wrap" style="padding:0">
+    <div class="stats">
+      <div class="stat"><div class="n">1</div><div class="l">次・token 只在初剪用</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">0</div><div class="l">改細節花的 token</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">web.mp4</div><div class="l">拿了直接發</div></div>
+    </div>
+  </div>
+
+  <div class="author">
+    <div class="nm">傑森所長 <span>@jasonxtsai</span></div>
+    <p>我是 Jason，經營「傑森所長」，專注在「AI × 自媒體變現」。我把 AI 工具實際測過、拆解成可以直接套用的工作流，然後把過程公開。所有我發出去的東西，都是我自己在用的東西。沒在用的我不會寫。</p>
+  </div>
+
+  <section class="section">
+    <div class="lbl">關鍵差別</div>
+    <h2>token 花在哪，一個月差很多</h2>
+    <div class="compare">
+      <div class="cc bad">
+        <h4>🔥 一般 AI 剪輯台</h4>
+        <ul>
+          <li>丟毛片 → AI 初剪（花 token）</li>
+          <li>改字幕 → 再呼叫 AI（再花）</li>
+          <li>換特效 → 再呼叫 AI（再花）</li>
+          <li>調節奏 → 再呼叫 AI（再花）</li>
+          <li>每改一次都在燒，一支片改五六次就有感</li>
+        </ul>
+      </div>
+      <div class="cc good">
+        <h4>✓ 我們的剪輯台</h4>
+        <ul>
+          <li>丟毛片 → AI 初剪（只花這一次 token）</li>
+          <li>改字幕、特效、節奏 → 工作台手動，0 token</li>
+          <li>加音樂、B-roll → 本機操作，0 token</li>
+          <li>只有想整段重剪，才再用一次</li>
+          <li>要不要花，你自己決定</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="lbl">流程</div>
+    <h2>一支片，怎麼剪</h2>
+
+    <div class="step" style="border-top:0;padding-top:12px;margin-top:4px">
+      <div class="no">01</div>
+      <div class="bd"><h3>丟毛片，AI 幫你初剪</h3>
+        <p>口播毛片拖進去，AI 聽完整支、去掉贅詞跟停頓、上好字幕，出一版初剪。這一步才會用到 token。</p>
+        <span class="badge use">🔸 用一次 token</span></div>
+    </div>
+    <div class="step">
+      <div class="no">02</div>
+      <div class="bd"><h3>三個關卡，你自己過</h3>
+        <p>初剪順不順、字幕有沒有聽錯、特效要不要加——三關你逐一看過。看的動作不呼叫 AI。</p>
+        <span class="badge free">✓ 0 token</span></div>
+    </div>
+    <div class="step">
+      <div class="no">03</div>
+      <div class="bd"><h3>改細節＝在工作台手動</h3>
+        <p>字幕打錯直接改、換個特效、調一下節奏、加音樂 B-roll——全部在本機操作，沒有再呼叫 AI。</p>
+        <span class="badge free">✓ 0 token</span></div>
+    </div>
+    <div class="step">
+      <div class="no">04</div>
+      <div class="bd"><h3>想整段重剪，才再用一次</h3>
+        <p>真的覺得要重來，才讓 AI 再判一次、再花一次 token。要不要花，你決定，不是它默默一直扣。</p>
+        <span class="badge opt">🔸 選擇性</span></div>
+    </div>
+    <div class="step">
+      <div class="no">05</div>
+      <div class="bd"><h3>存檔、渲染、拿 web.mp4 發片</h3>
+        <p>全程在你自己電腦跑，影片不上傳。渲染完拿 web.mp4 直接發。</p>
+        <span class="badge free">✓ 0 token</span></div>
+    </div>
+
+    <div class="tip" style="margin-top:28px;background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:15px;color:var(--ink2)">
+      <b>為什麼改細節不吃 token？</b> AI 只負責「第一次聽完整支、幫你初剪」那一步（用你自己的 Claude）。之後字幕、特效、節奏都是剪輯台在你電腦本機處理，沒有再呼叫 AI，自然不花 token。
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>剪片省下的，是你看不到的那些 token</h2>
+    <p>一支片改五六次、一個月幾十支，差距就出來了。整套（剪輯台＋怎麼接上你的 Claude）我在奇點研究所帶你裝，裡面還有輪播生成器跟第 0 課人設定位師。</p>
+    <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+  </section>
+
+  <section class="section">
+    <div class="lbl">下一步</div>
+    <h2>這些人進來最有感</h2>
+    <div class="nextwho">
+      <div class="row">每週要發影片、剪片剪到很煩的人</div>
+      <div class="row">試過 AI 剪輯、但被 token/訂閱燒怕的你</div>
+      <div class="row">想把「一個人做內容」整條線接起來的人</div>
+    </div>
+    <div class="lbl" style="margin-top:28px">進來你會拿到</div>
+    <ul class="getlist">
+      <li>奇點剪輯台（本機跑、改細節不燒 token）＋安裝教學</li>
+      <li>輪播生成器，一個人也能把內容做完</li>
+      <li>第 0 課人設定位師，先把方向鎖死</li>
+      <li>一群跟你一樣、正在用 AI 翻身的人</li>
+    </ul>
+    <div style="text-align:center;margin-top:22px">
+      <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fn">傑森所長 @jasonxtsai</div>
+    <div class="fh">Instagram：@jasonxtsai　／　Threads：@jasonxtsai</div>
+    <div class="dis">※ 剪輯台的 AI 初剪步驟使用你自己的 Claude 方案（會用到該步的 token）；工作台的手動細部操作在本機處理、不呼叫 AI，故不另外花 token。實際用量依你的影片長度與重剪次數而定。</div>
+  </footer>
+
+</div>
+</body>
+</html>
