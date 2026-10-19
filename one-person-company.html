@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>一人公司分工表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F7F2E8; --paper2:#FBF8F1; --ink:#2b2720; --ink2:#5c564b;
+    --gold:#A9802E; --gold-soft:#C8A24A; --line:#e4dccb; --card:#fffdf8;
+    --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.8;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px}
+  .section{padding-block:38px}
+  .eyebrow{font-size:13px;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:22px}
+  h1{font-family:var(--serif);font-weight:900;font-size:clamp(27px,6.4vw,52px);line-height:1.24;
+    letter-spacing:.3px;text-wrap:balance}
+  h1 .g{color:var(--gold)}
+  .lede-sub{font-family:var(--serif);font-weight:700;color:var(--gold);font-size:clamp(17px,3.6vw,21px);
+    margin:20px 0 26px}
+  .lede p{color:var(--ink2);font-size:16.5px}
+  header.hero{padding-top:64px;padding-bottom:10px}
+  .stats{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;margin:36px 0}
+  .stat{flex:1;min-width:84px;text-align:center}
+  .stat .n{font-family:var(--serif);font-weight:900;font-size:clamp(32px,8vw,44px);color:var(--gold);line-height:1}
+  .stat .l{font-size:12.5px;color:var(--ink2);margin-top:8px;letter-spacing:.02em}
+  .sep{align-self:center;color:var(--gold-soft);font-size:18px}
+  .author{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:14px;padding:24px 26px;margin:6px 0 10px}
+  .author .nm{font-family:var(--serif);font-weight:700;font-size:18px;margin-bottom:8px}
+  .author .nm span{color:var(--gold);font-family:var(--sans);font-size:15px;font-weight:700}
+  .author p{color:var(--ink2);font-size:15.5px}
+  .lbl{font-size:13px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:10px}
+  h2{font-family:var(--serif);font-weight:900;font-size:clamp(25px,5.2vw,34px);line-height:1.3;margin-bottom:6px}
+  .how p{color:var(--ink2);font-size:16px;margin-top:14px}
+  .how .tip{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:18px;font-size:15px;color:var(--ink2)}
+  /* 組織圖 */
+  .org{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 20px 28px;margin-top:22px;text-align:center}
+  .org .boss{display:inline-block;background:#282420;color:#f4ecdd;font-weight:800;font-size:15px;
+    padding:11px 22px;border-radius:999px;margin-bottom:6px}
+  .org .boss b{color:var(--gold-soft)}
+  .org .stem{width:2px;height:22px;background:var(--line);margin:0 auto}
+  .org .seats{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:4px}
+  .org .seat{background:var(--paper2);border:1px solid var(--line);border-radius:10px;
+    padding:10px 12px;font-size:13.5px;font-weight:600;color:var(--ink);min-width:88px}
+  .org .seat span{display:block;font-size:11.5px;color:var(--gold);font-weight:700;margin-top:3px}
+  /* 崗位 block */
+  .seatblk{border-top:1px solid var(--line);padding-top:30px;margin-top:34px}
+  .seatblk .no{font-family:var(--serif);font-weight:900;color:var(--gold-soft);font-size:38px;line-height:1}
+  .seatblk h3{font-family:var(--serif);font-weight:700;font-size:23px;margin:4px 0 2px}
+  .seatblk .who{display:inline-block;background:var(--paper2);border:1px solid var(--line);border-radius:999px;
+    font-size:12.5px;color:var(--gold);font-weight:700;padding:3px 12px;margin-bottom:12px;letter-spacing:.03em}
+  .codebox{background:#282420;border-radius:12px;overflow:hidden;margin:12px 0}
+  .codebox .bar{display:flex;justify-content:space-between;align-items:center;
+    padding:9px 14px;background:#211d19;border-bottom:1px solid #352f28}
+  .codebox .bar span{color:#b9ad97;font-size:12px;letter-spacing:.1em;font-weight:600}
+  .codebox button{background:var(--gold);color:#241c08;border:0;border-radius:7px;
+    padding:5px 14px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .codebox button.done{background:#3f7a4a;color:#fff}
+  .codebox pre{margin:0;padding:15px 16px 17px;color:#efe7d6;font-family:var(--mono);
+    font-size:13.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+  .join{margin-top:12px;font-size:14.5px;color:var(--ink2)}
+  .join b{color:var(--ink);font-weight:700}
+  /* 每日流程 timeline */
+  .day{display:flex;flex-direction:column;gap:0;margin-top:18px}
+  .day .t{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+  .day .t:last-child{border-bottom:0}
+  .day .tm{font-family:var(--mono);font-size:13px;color:var(--gold);font-weight:600;min-width:62px;padding-top:2px}
+  .day .tx{font-size:15.5px;color:var(--ink)}
+  .day .tx b{font-weight:700}
+  /* CTA */
+  .cta{background:#282420;color:#f4ecdd;border-radius:18px;padding:34px 28px;margin:46px 0;text-align:center}
+  .cta h2{color:#fff;margin-bottom:10px}
+  .cta p{color:#c9bca3;font-size:15.5px;max-width:520px;margin:0 auto 22px}
+  .btn{display:inline-block;background:var(--gold);color:#241c08;font-weight:800;
+    font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none}
+  .nextwho{display:flex;flex-direction:column;gap:12px;margin:22px 0}
+  .nextwho .row{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:15.5px;color:var(--ink2)}
+  .getlist{list-style:none;margin:18px 0}
+  .getlist li{position:relative;padding:8px 0 8px 30px;font-size:16px;border-bottom:1px solid var(--line)}
+  .getlist li::before{content:"✳";position:absolute;left:0;color:var(--gold);font-weight:700}
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:34px 0 60px;text-align:center}
+  footer .fn{font-family:var(--serif);font-weight:700;font-size:17px}
+  footer .fh{color:var(--gold);font-weight:700;font-size:14px;margin:6px 0 16px}
+  footer .dis{color:#9a9384;font-size:12.5px;max-width:520px;margin:0 auto;line-height:1.7}
+  a{color:inherit}
+  .floatcta{position:fixed;right:28px;top:50%;transform:translateY(-50%);width:300px;z-index:40;
+    background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:16px;padding:24px 24px 26px;box-shadow:0 18px 50px -24px rgba(60,45,15,.45)}
+  .floatcta .ns{font-size:12px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:12px}
+  .floatcta h4{font-family:var(--serif);font-weight:900;font-size:21px;line-height:1.3;margin-bottom:12px}
+  .floatcta h4 .g{color:var(--gold)}
+  .floatcta p{color:var(--ink2);font-size:14px;line-height:1.75;margin-bottom:18px}
+  .floatcta .btn{display:block;text-align:center;font-size:14.5px;padding:13px 10px}
+  @media (max-width:1180px){ .floatcta{display:none} }
+  .topbar{display:none}
+  .topbar a{display:flex;align-items:center;justify-content:center;gap:8px;
+    text-decoration:none;color:#2a1d05;font-weight:800;font-size:15px;line-height:1.3;text-align:center}
+  .topbar .arr{font-weight:700}
+  @media (max-width:1180px){
+    .topbar{display:block;position:fixed;top:0;left:0;right:0;z-index:50;background:var(--gold);
+      padding:13px 16px;padding-top:calc(13px + env(safe-area-inset-top,0px));
+      box-shadow:0 6px 20px -8px rgba(60,45,15,.5)}
+    body{padding-top:52px}
+  }
+  @media (max-width:480px){
+    .stats{gap:4px}
+    .stat{min-width:0}
+    .sep{display:none}
+    .stat .l{font-size:11px;letter-spacing:0}
+  }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">想把五個位子裝在身上 <span class="arr">→</span> 加入 奇點研究所 × D11</a></div>
+<aside class="floatcta">
+  <div class="ns">NEXT STEP</div>
+  <h4>分工表你有了<br><span class="g">剩下是把它跑起來</span></h4>
+  <p>這張表讓你看懂每個位子交給誰。要把指令、生成器、剪輯台真的接成一條線，我在 Skool 帶你裝。</p>
+  <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+</aside>
+<div class="wrap">
+
+  <header class="hero section">
+    <div class="eyebrow">AI × 自媒體・一人公司</div>
+    <h1>一個人<br>當一間公司用的<br><span class="g">AI 分工表</span></h1>
+    <div class="lede">
+      <p class="lede-sub">企劃、文案、設計、剪輯、小編——五個位子，全交給 AI。</p>
+      <p>經營一個 IG 本來要五個人，我一個都沒請。這張表把五個崗位攤開，每個位子給你：交給誰、一條可以直接複製的起手指令、怎麼接下去。照著擺，你一個人也能把內容做完。</p>
+    </div>
+  </header>
+
+  <div class="wrap" style="padding:0">
+    <div class="stats">
+      <div class="stat"><div class="n">5</div><div class="l">個崗位・全 AI</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">1</div><div class="l">個人・自己決定</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">1</div><div class="l">小時・一天收工</div></div>
+    </div>
+  </div>
+
+  <div class="author">
+    <div class="nm">傑森所長 <span>@jasonxtsai</span></div>
+    <p>我是 Jason，經營「傑森所長」，專注在「AI × 自媒體變現」。我把 AI 工具實際測過、拆解成可以直接套用的工作流，然後把過程公開。所有我發出去的東西，都是我自己在用的東西。沒在用的我不會寫。</p>
+  </div>
+
+  <section class="section">
+    <div class="lbl">先看全貌</div>
+    <h2>我的公司組織圖</h2>
+    <div class="org">
+      <div class="boss">老闆：我 — 只做<b>最後決定</b></div>
+      <div class="stem"></div>
+      <div class="seats">
+        <div class="seat">企劃<span>AI</span></div>
+        <div class="seat">文案<span>AI</span></div>
+        <div class="seat">設計<span>AI</span></div>
+        <div class="seat">剪輯<span>AI</span></div>
+        <div class="seat">小編<span>AI</span></div>
+      </div>
+    </div>
+    <div class="how"><p>五個位子全指向 AI，我只站在最上面挑與改。下面一個一個說，每個位子怎麼交。</p></div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="seatblk" style="border-top:0;padding-top:0;margin-top:0">
+      <div class="no">01</div>
+      <h3>企劃：想選題的人</h3>
+      <div class="who">交給 ChatGPT / Claude</div>
+      <div class="codebox">
+        <div class="bar"><span>起手指令</span><button data-copy>複製</button></div>
+        <pre>我做的是＿＿，受眾是＿＿。他們最近在搜什麼、在煩什麼？給我 10 個題目，每個標清楚戳的是痛點、好奇還是方法，按最值得先做的順序排。</pre>
+      </div>
+      <div class="join">怎麼接：從裡面挑一個「你一看就知道有人想點」的，<b>一篇只做一個</b>，往下交給文案。</div>
+    </div>
+
+    <div class="seatblk">
+      <div class="no">02</div>
+      <h3>文案：寫稿的人</h3>
+      <div class="who">交給 ChatGPT / Claude</div>
+      <div class="codebox">
+        <div class="bar"><span>起手指令</span><button data-copy>複製</button></div>
+        <pre>用這個角度＿＿幫我寫一篇 7 張輪播：第 1 張封面、第 2 張點出問題、中間一張一個重點、最後收尾加一句行動。句子短、像在跟人講話，不要官腔。</pre>
+      </div>
+      <div class="join">怎麼接：生出來先別照用，<b>把口氣換成你會講的話</b>，再交給設計。</div>
+    </div>
+
+    <div class="seatblk">
+      <div class="no">03</div>
+      <h3>設計：做封面的人</h3>
+      <div class="who">交給 ChatGPT 生圖</div>
+      <div class="codebox">
+        <div class="bar"><span>起手指令</span><button data-copy>複製</button></div>
+        <pre>我的標題是＿＿。給我 3 組封面大字，每組 5–8 字、一眼看懂、帶一點情緒，並說每組配什麼畫面最抓人。</pre>
+      </div>
+      <div class="join">怎麼接：挑一組，<b>套進你固定的風格版型</b>生圖。滑到會不會停就看這格，這位子盯最緊。</div>
+    </div>
+
+    <div class="seatblk">
+      <div class="no">04</div>
+      <h3>剪輯：剪 Reels 的人</h3>
+      <div class="who">交給 剪輯台（Claude）</div>
+      <div class="join" style="margin-top:0">
+        毛片丟進剪輯台，AI 先出一版初剪——去贅詞、上字幕。<br>
+        怎麼接：改字幕、換特效、拉節奏這些細節，<b>你自己在工作台手動點，不用再呼叫 AI</b>。
+      </div>
+    </div>
+
+    <div class="seatblk">
+      <div class="no">05</div>
+      <h3>小編：回留言的人</h3>
+      <div class="who">交給 ManyChat</div>
+      <div class="join" style="margin-top:0">
+        設一個關鍵字，有人留言就自動私訊對方要的東西。<br>
+        怎麼接：這篇就是例子——留言「分工」，自動把這張表送出去。<b>你睡覺的時候，這個位子還在上班</b>。
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="lbl">實際跑起來</div>
+    <h2>我一天怎麼跑這條線</h2>
+    <div class="day">
+      <div class="t"><div class="tm">早上</div><div class="tx"><b>選題</b>：叫企劃（AI）給一排題目，挑一個。</div></div>
+      <div class="t"><div class="tm">中午</div><div class="tx"><b>文案＋封面</b>：文案 AI 出七張、設計 AI 出封面，我改口氣。</div></div>
+      <div class="t"><div class="tm">下午</div><div class="tx"><b>剪 Reels</b>：毛片丟剪輯台初剪，細節自己調。</div></div>
+      <div class="t"><div class="tm">晚上</div><div class="tx"><b>發文</b>：留言關鍵字掛上去，小編（ManyChat）自己跑。</div></div>
+    </div>
+    <div class="how"><p>一天收工大概一小時到一個半小時。不是我比較拼，是每個位子都有人（AI）在做。</p></div>
+  </section>
+
+  <section class="cta">
+    <h2>表你有了，剩下的是把五個位子真的接起來</h2>
+    <p>這張分工表讓你看懂每個崗位交給誰。要把選題指令、輪播生成器、剪輯台真的裝在身上、接成一條線，不該你一個人慢慢試。我在奇點研究所帶你把整套跑起來。</p>
+    <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+  </section>
+
+  <section class="section">
+    <div class="lbl">下一步</div>
+    <h2>這些人進來最有感</h2>
+    <div class="nextwho">
+      <div class="row">一個人做內容、沒有團隊也沒預算請人的你</div>
+      <div class="row">想用 AI ＋ 自媒體建立個人品牌、創造收入的人</div>
+      <div class="row">工具裝了一堆，卻不知道怎麼接成一條線的人</div>
+    </div>
+    <div class="lbl" style="margin-top:28px">進來你會拿到</div>
+    <ul class="getlist">
+      <li>一人公司的完整 AI 分工流程，每個崗位的指令與接法</li>
+      <li>輪播生成器、剪輯台，一個人也能把內容做完</li>
+      <li>AI ＋ 自媒體的完整變現工作流，每週更新</li>
+      <li>一群跟你一樣、正在用 AI 翻身的人</li>
+    </ul>
+    <div style="text-align:center;margin-top:22px">
+      <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fn">傑森所長 @jasonxtsai</div>
+    <div class="fh">Instagram：@jasonxtsai　／　Threads：@jasonxtsai</div>
+    <div class="dis">※ AI 工具更新很快，這份分工表反映的是撰寫當下的用法。實際效果依你的主題與填空而定；AI 負責省時間，判斷與最終決策還是在你手上。</div>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pre = btn.closest('.codebox').querySelector('pre');
+      var txt = pre.innerText;
+      function ok(){ btn.textContent='已複製'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='複製'; btn.classList.remove('done'); },1600); }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(ok).catch(function(){ sel(pre); });
+      } else { sel(pre); }
+      function sel(node){ var r=document.createRange(); r.selectNodeContents(node); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); try{document.execCommand('copy'); ok();}catch(e){} }
+    });
+  });
+</script>
+</body>
+</html>
