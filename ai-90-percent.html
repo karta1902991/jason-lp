@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 的另外 90%</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F7F2E8; --paper2:#FBF8F1; --ink:#2b2720; --ink2:#5c564b;
+    --gold:#A9802E; --gold-soft:#C8A24A; --line:#e4dccb; --card:#fffdf8;
+    --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.8;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px}
+  .section{padding-block:38px}
+  .eyebrow{font-size:13px;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:22px}
+  h1{font-family:var(--serif);font-weight:900;font-size:clamp(27px,6.4vw,52px);line-height:1.24;
+    letter-spacing:.3px;text-wrap:balance}
+  h1 .g{color:var(--gold)}
+  .lede-sub{font-family:var(--serif);font-weight:700;color:var(--gold);font-size:clamp(17px,3.6vw,21px);
+    margin:20px 0 26px}
+  .lede p{color:var(--ink2);font-size:16.5px}
+  header.hero{padding-top:64px;padding-bottom:10px}
+  .stats{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;margin:36px 0}
+  .stat{flex:1;min-width:84px;text-align:center}
+  .stat .n{font-family:var(--serif);font-weight:900;font-size:clamp(32px,8vw,44px);color:var(--gold);line-height:1}
+  .stat .l{font-size:12.5px;color:var(--ink2);margin-top:8px;letter-spacing:.02em}
+  .sep{align-self:center;color:var(--gold-soft);font-size:18px}
+  .author{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:14px;padding:24px 26px;margin:6px 0 10px}
+  .author .nm{font-family:var(--serif);font-weight:700;font-size:18px;margin-bottom:8px}
+  .author .nm span{color:var(--gold);font-family:var(--sans);font-size:15px;font-weight:700}
+  .author p{color:var(--ink2);font-size:15.5px}
+  .lbl{font-size:13px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:10px}
+  h2{font-family:var(--serif);font-weight:900;font-size:clamp(25px,5.2vw,34px);line-height:1.3;margin-bottom:6px}
+  .how p{color:var(--ink2);font-size:16px;margin-top:14px}
+  .how .tip{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:18px;font-size:15px;color:var(--ink2)}
+  .cmd{border-top:1px solid var(--line);padding-top:30px;margin-top:38px}
+  .cmd .no{font-family:var(--serif);font-weight:900;color:var(--gold-soft);font-size:40px;line-height:1}
+  .cmd h3{font-family:var(--serif);font-weight:700;font-size:24px;margin:8px 0 4px}
+  .cmd .do{color:var(--ink2);font-size:15.5px;margin-bottom:16px}
+  .codebox{background:#282420;border-radius:12px;overflow:hidden;margin:14px 0}
+  .codebox .bar{display:flex;justify-content:space-between;align-items:center;
+    padding:9px 14px;background:#211d19;border-bottom:1px solid #352f28}
+  .codebox .bar span{color:#b9ad97;font-size:12px;letter-spacing:.1em;font-weight:600}
+  .codebox button{background:var(--gold);color:#241c08;border:0;border-radius:7px;
+    padding:5px 14px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .codebox button.done{background:#3f7a4a;color:#fff}
+  .codebox pre{margin:0;padding:16px 16px 18px;color:#efe7d6;font-family:var(--mono);
+    font-size:14px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+  .join{margin-top:14px;font-size:15px;color:var(--ink2)}
+  .join b{color:var(--ink);font-weight:700}
+  .cta{background:#282420;color:#f4ecdd;border-radius:18px;padding:34px 28px;margin:46px 0;text-align:center}
+  .cta h2{color:#fff;margin-bottom:10px}
+  .cta p{color:#c9bca3;font-size:15.5px;max-width:520px;margin:0 auto 22px}
+  .btn{display:inline-block;background:var(--gold);color:#241c08;font-weight:800;
+    font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none}
+  .nextwho{display:flex;flex-direction:column;gap:12px;margin:22px 0}
+  .nextwho .row{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:15.5px;color:var(--ink2)}
+  .getlist{list-style:none;margin:18px 0}
+  .getlist li{position:relative;padding:8px 0 8px 30px;font-size:16px;border-bottom:1px solid var(--line)}
+  .getlist li::before{content:"✳";position:absolute;left:0;color:var(--gold);font-weight:700}
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:34px 0 60px;text-align:center}
+  footer .fn{font-family:var(--serif);font-weight:700;font-size:17px}
+  footer .fh{color:var(--gold);font-weight:700;font-size:14px;margin:6px 0 16px}
+  footer .dis{color:#9a9384;font-size:12.5px;max-width:520px;margin:0 auto;line-height:1.7}
+  a{color:inherit}
+  .floatcta{position:fixed;right:28px;top:50%;transform:translateY(-50%);width:300px;z-index:40;
+    background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:16px;padding:24px 24px 26px;box-shadow:0 18px 50px -24px rgba(60,45,15,.45)}
+  .floatcta .ns{font-size:12px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:12px}
+  .floatcta h4{font-family:var(--serif);font-weight:900;font-size:21px;line-height:1.3;margin-bottom:12px}
+  .floatcta h4 .g{color:var(--gold)}
+  .floatcta p{color:var(--ink2);font-size:14px;line-height:1.75;margin-bottom:18px}
+  .floatcta .btn{display:block;text-align:center;font-size:14.5px;padding:13px 10px}
+  @media (max-width:1180px){ .floatcta{display:none} }
+  .topbar{display:none}
+  .topbar a{display:flex;align-items:center;justify-content:center;gap:8px;
+    text-decoration:none;color:#2a1d05;font-weight:800;font-size:15px;line-height:1.3;text-align:center}
+  .topbar .arr{font-weight:700}
+  @media (max-width:1180px){
+    .topbar{display:block;position:fixed;top:0;left:0;right:0;z-index:50;background:var(--gold);
+      padding:13px 16px;padding-top:calc(13px + env(safe-area-inset-top,0px));
+      box-shadow:0 6px 20px -8px rgba(60,45,15,.5)}
+    body{padding-top:52px}
+  }
+  @media (max-width:480px){
+    .stats{gap:4px}
+    .stat{min-width:0}
+    .sep{display:none}
+    .stat .l{font-size:11px;letter-spacing:0}
+  }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">想把 AI 用好用滿 <span class="arr">→</span> 加入 奇點研究所 × D11</a></div>
+<aside class="floatcta">
+  <div class="ns">NEXT STEP</div>
+  <h4>這五個只是<br><span class="g">開始</span></h4>
+  <p>把 AI 當一個會做事的人用，省下的時間遠不只這些。整套怎麼接，我在 Skool 帶你練。</p>
+  <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+</aside>
+<div class="wrap">
+
+  <header class="hero section">
+    <div class="eyebrow">AI × 自媒體・進階用法</div>
+    <h1>你用 AI<br>只用到 10%<br><span class="g">剩下 90% 在這</span></h1>
+    <div class="lede">
+      <p class="lede-sub">我開公司天天靠它，這五個用法一般人沒在碰。</p>
+      <p>大部分人打開 AI，就是叫它寫個東西、翻個譯，然後就沒了。我開自媒體公司、天天用它做事，才發現真正省時間的用法很多人根本沒試過。下面五個，每個附一條可以直接複製的起手指令，你今天就能用。</p>
+    </div>
+  </header>
+
+  <div class="wrap" style="padding:0">
+    <div class="stats">
+      <div class="stat"><div class="n">5</div><div class="l">個・進階用法</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">5</div><div class="l">條・可複製指令</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">0</div><div class="l">元・原本的工具就能跑</div></div>
+    </div>
+  </div>
+
+  <div class="author">
+    <div class="nm">傑森所長 <span>@jasonxtsai</span></div>
+    <p>我是 Jason，經營「傑森所長」，專注在「AI × 自媒體變現」。我把 AI 工具實際測過、拆解成可以直接套用的工作流，然後把過程公開。所有我發出去的東西，都是我自己在用的東西。沒在用的我不會寫。</p>
+  </div>
+
+  <section class="section how">
+    <div class="lbl">使用前</div>
+    <h2>怎麼用這 5 個指令</h2>
+    <p>每個指令裡的 <b>＿＿</b> 換成你自己的東西。重點不是工具變強，是你有沒有把它當一個會做事的人用——會分析、會模擬、會陪你練。</p>
+    <div class="tip">⚠️ 這些是「地板」不是「天花板」。AI 給的先當草稿，挑哪個、怎麼改，決定權還是在你手上。</div>
+  </section>
+
+  <section class="section">
+    <div class="cmd" style="border-top:0;padding-top:0;margin-top:0">
+      <div class="no">01</div>
+      <h3>把它當對標分析師</h3>
+      <div class="do">看到做得好的帳號，不用自己瞎看，叫它把人家的套路拆給你。</div>
+      <div class="codebox">
+        <div class="bar"><span>指令 ①</span><button data-copy>複製</button></div>
+        <pre>這個帳號在＿＿，幫我拆：它標題怎麼下（抓 3 個我能套的公式）、都挑哪幾類題目、留言區的人在煩什麼。最後給我 5 個我能學、再換成自己切角的題目。</pre>
+      </div>
+      <div class="join">用在：想抄一個對標的套路，又不想一篇一篇看。</div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">02</div>
+      <h3>把它當留言區模擬器</h3>
+      <div class="do">這篇發出去會被問什麼、被酸什麼？先讓 AI 演一遍，你發文前就想好怎麼接。</div>
+      <div class="codebox">
+        <div class="bar"><span>指令 ②</span><button data-copy>複製</button></div>
+        <pre>我要發一篇講＿＿的貼文，受眾是＿＿。先幫我演一遍留言區：他們會問什麼、會酸什麼、哪裡會被說服？每種各 3 則，再告訴我每一種怎麼回最好。</pre>
+      </div>
+      <div class="join">用在：怕翻車、想先把會被打的點都想過一輪。</div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">03</div>
+      <h3>把它當口白改寫機</h3>
+      <div class="do">你對著它隨便講一段你想拍的，叫它改成前 3 秒就抓人的短影音口白。</div>
+      <div class="codebox">
+        <div class="bar"><span>指令 ③</span><button data-copy>複製</button></div>
+        <pre>把這段＿＿改成我會講的短影音口白：前 3 秒先鉤住人、一點一點講、句子短、聽起來是人在說話。</pre>
+      </div>
+      <div class="join">用在：不會寫稿，但你會講——講完丟給它整理。</div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">04</div>
+      <h3>把它當一週排程員</h3>
+      <div class="do">給它你的主題跟受眾，叫它排七天、每天一個角度，你不用每天煩「今天發什麼」。</div>
+      <div class="codebox">
+        <div class="bar"><span>指令 ④</span><button data-copy>複製</button></div>
+        <pre>我做的是＿＿，受眾是＿＿。幫我排一週 7 天的內容，每天一個角度、配一句標題，標清楚戳的是痛點、好奇還是方法，按最值得先發的順序排。</pre>
+      </div>
+      <div class="join">用在：想穩定發、不想每天從白紙開始。</div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">05</div>
+      <h3>把它當談判對練教練</h3>
+      <div class="do">要跟廠商談合作、談價錢，先跟 AI 對練一輪，把對方會打的點先想過。</div>
+      <div class="codebox">
+        <div class="bar"><span>指令 ⑤</span><button data-copy>複製</button></div>
+        <pre>我要跟＿＿談＿＿（合作／價錢）。你先當對方，把會砍的地方、會打的點都拋出來，我回一句你接一句，練到我被問不倒為止。最後幫我整理 3 個我還沒想到的風險。</pre>
+      </div>
+      <div class="join">用在：上桌前先練一遍，不要在對方面前才第一次想。</div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>這五個只是開始</h2>
+    <p>把 AI 當一個會做事的人用，能省的遠不只這些。想把這套接進你每天的內容流程——選題、文案、剪輯、留言自動跑，我在奇點研究所帶你把整套裝起來。</p>
+    <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+  </section>
+
+  <section class="section">
+    <div class="lbl">下一步</div>
+    <h2>這些人進來最有感</h2>
+    <div class="nextwho">
+      <div class="row">AI 開來只會叫它寫東西、翻譯，覺得沒那麼神的人</div>
+      <div class="row">想用 AI ＋ 自媒體建立個人品牌、創造收入的人</div>
+      <div class="row">一個人做內容，想把每件事都做快一點的你</div>
+    </div>
+    <div class="lbl" style="margin-top:28px">進來你會拿到</div>
+    <ul class="getlist">
+      <li>我公司天天在用的進階 AI 指令整包，每週更新</li>
+      <li>AI ＋ 自媒體的完整變現工作流</li>
+      <li>輪播生成器、剪輯台，一個人也能把內容做完</li>
+      <li>一群跟你一樣、正在用 AI 翻身的人</li>
+    </ul>
+    <div style="text-align:center;margin-top:22px">
+      <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fn">傑森所長 @jasonxtsai</div>
+    <div class="fh">Instagram：@jasonxtsai　／　Threads：@jasonxtsai</div>
+    <div class="dis">※ AI 工具更新很快，這些用法反映的是撰寫當下的玩法。實際效果依你的主題與填空而定；AI 負責省時間，判斷與最終決策還是在你手上。</div>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pre = btn.closest('.codebox').querySelector('pre');
+      var txt = pre.innerText;
+      function ok(){ btn.textContent='已複製'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='複製'; btn.classList.remove('done'); },1600); }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(ok).catch(function(){ sel(pre); });
+      } else { sel(pre); }
+      function sel(node){ var r=document.createRange(); r.selectNodeContents(node); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); try{document.execCommand('copy'); ok();}catch(e){} }
+    });
+  });
+</script>
+</body>
+</html>
