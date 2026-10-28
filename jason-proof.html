@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>近 30 天的做法</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="近 30 天 377 萬觀看，我的做法｜傑森所長">
+<meta property="og:description" content="把選題、開頭、改文案交給 AI 先出一版，我再挑、再改。這是我實際在用的 3 個指令。">
+<meta property="og:image" content="https://karta1902991.github.io/jason-lp/og/jason-proof.jpg">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1350">
+<meta property="og:url" content="https://karta1902991.github.io/jason-lp/jason-proof">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="近 30 天 377 萬觀看，我的做法｜傑森所長">
+<meta name="twitter:description" content="把選題、開頭、改文案交給 AI 先出一版，我再挑、再改。這是我實際在用的 3 個指令。">
+<meta name="twitter:image" content="https://karta1902991.github.io/jason-lp/og/jason-proof.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#F7F2E8; --paper2:#FBF8F1; --ink:#2b2720; --ink2:#5c564b;
+    --gold:#A9802E; --gold-soft:#C8A24A; --line:#e4dccb; --card:#fffdf8;
+    --serif:"Noto Serif TC",serif; --sans:"Noto Sans TC",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
+    color-scheme:light;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px}
+  .section{padding-block:38px}
+  .eyebrow{font-size:13px;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:22px}
+  h1{font-family:var(--serif);font-weight:900;font-size:clamp(27px,6.4vw,52px);line-height:1.24;letter-spacing:.3px;text-wrap:balance}
+  h1 .g{color:var(--gold)}
+  .lede-sub{font-family:var(--serif);font-weight:700;color:var(--gold);font-size:clamp(17px,3.6vw,21px);margin:20px 0 26px}
+  .lede p{color:var(--ink2);font-size:16.5px}
+  header.hero{padding-top:64px;padding-bottom:10px}
+  .stats{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;margin:36px 0}
+  .stat{flex:1;min-width:84px;text-align:center}
+  .stat .n{font-family:var(--serif);font-weight:900;font-size:clamp(28px,7vw,40px);color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+  .stat .l{font-size:12.5px;color:var(--ink2);margin-top:8px}
+  .sep{align-self:center;color:var(--gold-soft);font-size:18px}
+  .author{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:14px;padding:24px 26px;margin:6px 0 10px}
+  .author .nm{font-family:var(--serif);font-weight:700;font-size:18px;margin-bottom:8px}
+  .author .nm span{color:var(--gold);font-family:var(--sans);font-size:15px;font-weight:700}
+  .author p{color:var(--ink2);font-size:15.5px}
+  .lbl{font-size:13px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:10px}
+  h2{font-family:var(--serif);font-weight:900;font-size:clamp(25px,5.2vw,34px);line-height:1.3;margin-bottom:6px}
+  .how p{color:var(--ink2);font-size:16px;margin-top:14px}
+  .how .tip{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:18px;font-size:15px;color:var(--ink2)}
+  .cmd{border-top:1px solid var(--line);padding-top:30px;margin-top:38px}
+  .cmd .no{font-family:var(--serif);font-weight:900;color:var(--gold-soft);font-size:40px;line-height:1}
+  .cmd h3{font-family:var(--serif);font-weight:700;font-size:24px;margin:8px 0 4px}
+  .cmd .do{color:var(--ink2);font-size:15.5px;margin-bottom:16px}
+  .codebox{background:#282420;border-radius:12px;overflow:hidden;margin:14px 0}
+  .codebox .bar{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#211d19;border-bottom:1px solid #352f28}
+  .codebox .bar span{color:#b9ad97;font-size:12px;letter-spacing:.1em;font-weight:600}
+  .codebox button{background:var(--gold);color:#241c08;border:0;border-radius:7px;padding:5px 14px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .codebox button.done{background:#3f7a4a;color:#fff}
+  .codebox pre{margin:0;padding:16px 16px 18px;color:#efe7d6;font-family:var(--mono);font-size:14px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+  .fill{margin-top:16px;font-size:15px;color:var(--ink2)}
+  .fill b{color:var(--ink);font-weight:700}
+  .cta{background:#282420;color:#f4ecdd;border-radius:18px;padding:34px 28px;margin:46px 0;text-align:center}
+  .cta h2{color:#fff;margin-bottom:10px}
+  .cta p{color:#c9bca3;font-size:15.5px;max-width:520px;margin:0 auto 22px}
+  .btn{display:inline-block;background:var(--gold);color:#241c08;font-weight:800;font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none}
+  .nextwho{display:flex;flex-direction:column;gap:12px;margin:22px 0}
+  .nextwho .row{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:15.5px;color:var(--ink2)}
+  .getlist{list-style:none;margin:18px 0}
+  .getlist li{position:relative;padding:8px 0 8px 30px;font-size:16px;border-bottom:1px solid var(--line)}
+  .getlist li::before{content:"✳";position:absolute;left:0;color:var(--gold);font-weight:700}
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:34px 0 60px;text-align:center}
+  footer .fn{font-family:var(--serif);font-weight:700;font-size:17px}
+  footer .fh{color:var(--gold);font-weight:700;font-size:14px;margin:6px 0 16px}
+  footer .dis{color:#9a9384;font-size:12.5px;max-width:520px;margin:0 auto;line-height:1.7}
+  a{color:inherit}
+  .floatcta{position:fixed;right:28px;top:50%;transform:translateY(-50%);width:300px;z-index:40;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:16px;padding:24px 24px 26px;box-shadow:0 18px 50px -24px rgba(60,45,15,.45)}
+  .floatcta .ns{font-size:12px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:12px}
+  .floatcta h4{font-family:var(--serif);font-weight:900;font-size:21px;line-height:1.3;margin-bottom:12px}
+  .floatcta h4 .g{color:var(--gold)}
+  .floatcta p{color:var(--ink2);font-size:14px;line-height:1.75;margin-bottom:18px}
+  .floatcta .btn{display:block;text-align:center;font-size:14.5px;padding:13px 10px}
+  @media (max-width:1180px){ .floatcta{display:none} }
+  .topbar{display:none}
+  .topbar a{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:#2a1d05;font-weight:800;font-size:15px;line-height:1.3;text-align:center}
+  @media (max-width:1180px){
+    .topbar{display:block;position:fixed;top:0;left:0;right:0;z-index:50;background:var(--gold);padding:13px 16px;padding-top:calc(13px + env(safe-area-inset-top,0px));box-shadow:0 6px 20px -8px rgba(60,45,15,.5)}
+    body{padding-top:52px}
+  }
+  @media (max-width:480px){ .stats{gap:4px} .stat{min-width:0} .sep{display:none} .stat .l{font-size:11px} }
+</style>
+</head>
+<body>
+<div class="topbar"><a href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">想練完整的內容流程 → 加入 奇點研究所 × D11</a></div>
+<aside class="floatcta">
+  <div class="ns">NEXT STEP</div>
+  <h4>指令給你<br><span class="g">流程跟我練</span></h4>
+  <p>這 3 個指令讓你做得更快。要把「選題→內容→流量→變現」接成一整套，我在 Skool 帶你走。</p>
+  <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+</aside>
+<div class="wrap">
+
+  <header class="hero section">
+    <div class="eyebrow">AI × 自媒體・近 30 天見證</div>
+    <h1>近 30 天<br><span class="g">377 萬次觀看</span><br>我是這樣做的</h1>
+    <div class="lede">
+      <p class="lede-sub">選題、開頭、改文案，我交給 AI 先出一版，再自己挑、自己改。</p>
+      <p>這段時間（9/27–10/26）我沒有買廣告，就是把最花腦力的三關交給 AI 先做、我再拍板。下面是我實際在用的 3 個指令，你照著貼、換成自己的就能跑。</p>
+    </div>
+  </header>
+
+  <div class="wrap" style="padding:0">
+    <div class="stats">
+      <div class="stat"><div class="n">377萬</div><div class="l">次・觀看（近 30 天）</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">+13,550</div><div class="l">淨增・粉絲</div></div>
+      <div class="sep">·</div>
+      <div class="stat"><div class="n">3</div><div class="l">個・我在用的指令</div></div>
+    </div>
+  </div>
+
+  <div class="author">
+    <div class="nm">傑森所長 <span>@jasonxtsai</span></div>
+    <p>我是 Jason，經營「傑森所長」，專注在「AI × 自媒體變現」。我把 AI 工具實際測過、拆成可以直接套用的工作流，再把過程公開。發出去的都是我自己在用的，沒在用的我不會寫。</p>
+  </div>
+
+  <section class="section how">
+    <div class="lbl">先說清楚</div>
+    <h2>這數據怎麼看</h2>
+    <p>這是「這個帳號、這段時間」的紀錄，每個題目和帳號的表現都會不同——<b>這不是保證你照做就有一樣的數字</b>。能複製的是「做法」：把最花時間的三關交給 AI 先出一版，你才有餘裕把每篇看一遍、再從留言找下一題。</p>
+    <div class="tip">⚠️ 指令只負責省時間，判斷還是你的。AI 給的是草稿，挑哪個、改成你的口氣，決定權在你手上。</div>
+  </section>
+
+  <section class="section">
+    <div class="cmd" style="border-top:0;padding-top:0;margin-top:0">
+      <div class="no">01</div>
+      <h3>選題：不再對著空白發呆</h3>
+      <div class="do">不知道發什麼的時候，先叫它給一批帶搜尋標題、分好角度的選題，你只要挑。</div>
+      <div class="codebox"><div class="bar"><span>指令 ① 選題</span><button data-copy>複製</button></div>
+      <pre>你是一個幫我經營 IG 的資深小編。我做的是＿＿，想紅給＿＿看。給我 10 個題目，每個配一句人家會去搜的標題，標清楚戳的是痛點、好奇還是方法，按你覺得最值得先試的順序排。</pre></div>
+      <div class="fill">填空示範：做的是「<b>教上班族用 AI 做副業</b>」，想紅給「<b>28–40 歲、有預算沒時間的上班族</b>」看。</div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">02</div>
+      <h3>開頭：前 3 秒留住人</h3>
+      <div class="do">同一個題目，一次要 5 種開頭，自己挑最嗆的那句當前 3 秒。</div>
+      <div class="codebox"><div class="bar"><span>指令 ② 開頭</span><button data-copy>複製</button></div>
+      <pre>我這篇在講＿＿。給我 5 種不同的開頭，前 3 秒就要鉤住人，每種標清楚用的是什麼角度（痛點、好奇、反差、數字、還是故事）。</pre></div>
+      <div class="fill">填空示範：在講「<b>用 AI 一個人做內容、省時間</b>」。</div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">03</div>
+      <h3>改文案：改成你會講的話</h3>
+      <div class="do">自己寫得乾乾的那段，丟給它改成會被看完的口白，再把口氣調回自己的。</div>
+      <div class="codebox"><div class="bar"><span>指令 ③ 改文案</span><button data-copy>複製</button></div>
+      <pre>把這段＿＿改成我會講的短影音口白：前 3 秒先鉤住人、一點一點講、句子短、聽起來是人在說話。</pre></div>
+      <div class="fill">填空示範：貼進一段「我今天要介紹一個很好用的 AI 工具，它可以幫你……」。</div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>指令給你了，剩下的是怎麼接成一條線</h2>
+    <p>這 3 個指令讓你把內容做得更快。要把「選題 → 內容 → 流量 → 變現」接成一整套，不該你一個人慢慢摸。我在奇點研究所帶你把整套跑起來，裡面還有輪播生成器跟剪輯台。</p>
+    <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+  </section>
+
+  <section class="section">
+    <div class="lbl">下一步</div>
+    <h2>這些人進來最有感</h2>
+    <div class="nextwho">
+      <div class="row">想用 AI ＋ 自媒體建立個人品牌、創造收入的人</div>
+      <div class="row">每天卡在「不知道發什麼、開頭怎麼寫」的你</div>
+      <div class="row">收藏了一堆指令，卻從來沒真的用起來的人</div>
+    </div>
+    <div class="lbl" style="margin-top:28px">進來你會拿到</div>
+    <ul class="getlist">
+      <li>選題、開頭、改文案的完整指令（可直接複製）</li>
+      <li>AI ＋ 自媒體的完整變現工作流，每週更新</li>
+      <li>輪播生成器、剪輯台，一個人也能把內容做完</li>
+      <li>一群跟你一樣、正在用 AI 翻身的人</li>
+    </ul>
+    <div style="text-align:center;margin-top:22px">
+      <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fn">傑森所長 @jasonxtsai</div>
+    <div class="fh">Instagram：@jasonxtsai　／　Threads：@jasonxtsai</div>
+    <div class="dis">※ 數據為本帳號 2026-09-27～10-26 之紀錄，僅供參考，不代表你照做會有相同結果。AI 工具更新很快，指令反映撰寫當下用法；指令只負責省時間，判斷與最終決策仍在你手上。</div>
+  </footer>
+
+</div>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pre = btn.closest('.codebox').querySelector('pre'); var txt = pre.innerText;
+      function ok(){ btn.textContent='已複製'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='複製'; btn.classList.remove('done'); },1600); }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok).catch(function(){ sel(pre); }); } else { sel(pre); }
+      function sel(node){ var r=document.createRange(); r.selectNodeContents(node); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); try{document.execCommand('copy'); ok();}catch(e){} }
+    });
+  });
+</script>
+</body>
+</html>
