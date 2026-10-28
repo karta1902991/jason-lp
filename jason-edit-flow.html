@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 剪片五步</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="我剪片，不開剪輯軟體｜傑森所長">
+<meta property="og:description" content="錄完音剩下交給 AI。逐字稿、剪輯建議、秒數清單、檢查——5 條可複製指令。">
+<meta property="og:image" content="https://karta1902991.github.io/jason-lp/og/jason-edit-flow.jpg">
+<meta property="og:image:width" content="1080"><meta property="og:image:height" content="1350">
+<meta property="og:url" content="https://karta1902991.github.io/jason-lp/jason-edit-flow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="我剪片，不開剪輯軟體｜傑森所長">
+<meta name="twitter:description" content="錄完音剩下交給 AI，5 條可複製指令。">
+<meta name="twitter:image" content="https://karta1902991.github.io/jason-lp/og/jason-edit-flow.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{--paper:#F7F2E8;--paper2:#FBF8F1;--ink:#2b2720;--ink2:#5c564b;--gold:#A9802E;--gold-soft:#C8A24A;--line:#e4dccb;--card:#fffdf8;--serif:"Noto Serif TC",serif;--sans:"Noto Sans TC",system-ui,sans-serif;--mono:"JetBrains Mono",monospace;color-scheme:light;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px}
+  .section{padding-block:38px}
+  .eyebrow{font-size:13px;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-bottom:22px}
+  h1{font-family:var(--serif);font-weight:900;font-size:clamp(27px,6.4vw,52px);line-height:1.24;text-wrap:balance}
+  h1 .g{color:var(--gold)}
+  .lede-sub{font-family:var(--serif);font-weight:700;color:var(--gold);font-size:clamp(17px,3.6vw,21px);margin:20px 0 26px}
+  .lede p{color:var(--ink2);font-size:16.5px}
+  header.hero{padding-top:64px;padding-bottom:10px}
+  .flow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 14px;margin-top:26px;justify-content:center}
+  .flow .n{background:var(--paper2);border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-weight:700;font-size:13px}
+  .flow .ar{color:var(--gold);font-weight:800}
+  .author{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:14px;padding:24px 26px;margin:26px 0 10px}
+  .author .nm{font-family:var(--serif);font-weight:700;font-size:18px;margin-bottom:8px}
+  .author .nm span{color:var(--gold);font-size:15px;font-weight:700}
+  .author p{color:var(--ink2);font-size:15.5px}
+  .lbl{font-size:13px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:10px}
+  h2{font-family:var(--serif);font-weight:900;font-size:clamp(25px,5.2vw,34px);line-height:1.3;margin-bottom:6px}
+  .how p{color:var(--ink2);font-size:16px;margin-top:14px}
+  .how .tip{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:18px;font-size:15px;color:var(--ink2)}
+  .cmd{border-top:1px solid var(--line);padding-top:30px;margin-top:34px}
+  .cmd .no{font-family:var(--serif);font-weight:900;color:var(--gold-soft);font-size:38px;line-height:1}
+  .cmd h3{font-family:var(--serif);font-weight:700;font-size:23px;margin:6px 0 4px}
+  .cmd .do{color:var(--ink2);font-size:15.5px;margin-bottom:14px}
+  .codebox{background:#282420;border-radius:12px;overflow:hidden;margin:12px 0}
+  .codebox .bar{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#211d19;border-bottom:1px solid #352f28}
+  .codebox .bar span{color:#b9ad97;font-size:12px;letter-spacing:.08em;font-weight:600}
+  .codebox button{background:var(--gold);color:#241c08;border:0;border-radius:7px;padding:5px 14px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .codebox button.done{background:#3f7a4a;color:#fff}
+  .codebox pre{margin:0;padding:15px 16px 17px;color:#efe7d6;font-family:var(--mono);font-size:13.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+  .cta{background:#282420;color:#f4ecdd;border-radius:18px;padding:34px 28px;margin:46px 0;text-align:center}
+  .cta h2{color:#fff;margin-bottom:10px}.cta p{color:#c9bca3;font-size:15.5px;max-width:520px;margin:0 auto 22px}
+  .btn{display:inline-block;background:var(--gold);color:#241c08;font-weight:800;font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none}
+  .getlist{list-style:none;margin:18px 0}
+  .getlist li{position:relative;padding:8px 0 8px 30px;font-size:16px;border-bottom:1px solid var(--line)}
+  .getlist li::before{content:"✳";position:absolute;left:0;color:var(--gold);font-weight:700}
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:34px 0 60px;text-align:center}
+  footer .fn{font-family:var(--serif);font-weight:700;font-size:17px}
+  footer .fh{color:var(--gold);font-weight:700;font-size:14px;margin:6px 0 16px}
+  footer .dis{color:#9a9384;font-size:12.5px;max-width:520px;margin:0 auto;line-height:1.7}
+  a{color:inherit}
+  .topbar{display:none}.topbar a{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:#2a1d05;font-weight:800;font-size:15px;text-align:center}
+  @media (max-width:1180px){.topbar{display:block;position:fixed;top:0;left:0;right:0;z-index:50;background:var(--gold);padding:13px 16px;padding-top:calc(13px + env(safe-area-inset-top,0px));box-shadow:0 6px 20px -8px rgba(60,45,15,.5)}body{padding-top:52px}}
+</style>
+</head>
+<body>
+<div class="topbar"><a href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">想跟著跑完整套 → 加入 奇點研究所 × D11</a></div>
+<div class="wrap">
+  <header class="hero section">
+    <div class="eyebrow">AI × 自媒體・剪片工作流</div>
+    <h1>我剪片<br><span class="g">不開剪輯軟體</span></h1>
+    <div class="lede">
+      <p class="lede-sub">AI 負責剪，我負責說 OK。錄完音，剩下交給 AI。</p>
+      <p>這是我實際在用的剪片流程，拆成 5 步。每一步下面都放了可以直接複製的指令——照順序貼，就知道每一步該讓 AI 做什麼。</p>
+      <div class="flow"><span class="n">逐字稿</span><span class="ar">→</span><span class="n">剪輯建議</span><span class="ar">→</span><span class="n">秒數清單</span><span class="ar">→</span><span class="n">人工確認</span><span class="ar">→</span><span class="n">發片前檢查</span></div>
+    </div>
+  </header>
+
+  <div class="author">
+    <div class="nm">傑森所長 <span>@jasonxtsai</span></div>
+    <p>我是 Jason，經營「傑森所長」，專注在「AI × 自媒體變現」。以前剪一支片我要盯時間軸盯到半夜，現在錄完音就丟給 AI，我只做最後決定。這 5 條指令就是我在用的。</p>
+  </div>
+
+  <section class="section how">
+    <div class="lbl">用之前</div>
+    <h2>先備好三樣</h2>
+    <p>原始影片或錄音、帶時間碼的逐字稿、還有這支影片想講的主題。依你用的 AI 工具實際支援的格式提供。</p>
+    <div class="tip">⚠️ 指令裡都寫了防線：不編造秒數、不假裝看過影片。AI 給的是草稿和建議，最後成品一定要自己看過一遍再發。</div>
+  </section>
+
+  <section class="section">
+    <div class="cmd" style="border-top:0;padding-top:0;margin-top:0">
+      <div class="no">01</div>
+      <h3>先轉逐字稿</h3>
+      <div class="do">把我講的話變成文字，一眼看出哪裡贅、哪裡重複。</div>
+      <div class="codebox"><div class="bar"><span>指令 ① 逐字稿</span><button data-copy>複製</button></div>
+      <pre>請將這份錄音／影片整理成繁體中文逐字稿，保留原意與說話順序。若能讀取音訊，請附每一段的起訖時間碼；無法確認的字詞標記「待確認」，不要猜人名、數字或專有名詞。另列出重複內容、語氣詞與過長停頓，先不要自行刪除。</pre></div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">02</div>
+      <h3>提出剪輯建議</h3>
+      <div class="do">叫它規劃這支片的開頭、該留的重點、可刪的重複，還有段落順序。</div>
+      <div class="codebox"><div class="bar"><span>指令 ② 剪輯建議</span><button data-copy>複製</button></div>
+      <pre>根據以下逐字稿，協助規劃一支短影音。主題是【填入主題】，對象是【填入觀眾】，預期長度為【填入長度】。請指出適合的開頭、必須保留的重點、可刪的重複內容，以及建議段落順序。每項建議說明原因。只依我提供的素材判斷，不新增說話內容，不改變原意。</pre></div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">03</div>
+      <h3>列出秒數清單</h3>
+      <div class="do">把建議整理成一張「幾秒到幾秒、留還是刪」的表，你不用自己一段段找。</div>
+      <div class="codebox"><div class="bar"><span>指令 ③ 秒數清單</span><button data-copy>複製</button></div>
+      <pre>請對照這份帶時間碼的逐字稿，將剪輯建議整理成表格：起始時間、結束時間、原文、保留／刪除／精簡／移動、原因。時間碼必須來自來源；沒有對應時間的地方寫「待對照原片」，不可編造秒數。若前後句有依賴關係，請另外標記，避免剪完語意斷裂。</pre></div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">04</div>
+      <h3>協助人工確認</h3>
+      <div class="do">剪之前，叫它列出「你要逐段確認」的地方，重點別被剪掉、前後接得起來。</div>
+      <div class="codebox"><div class="bar"><span>指令 ④ 人工確認</span><button data-copy>複製</button></div>
+      <pre>請根據這份剪輯清單與逐字稿，列出需要我逐段確認的地方：關鍵說明是否被刪、剪接前後是否接得起來、人名數字與字幕是否正確。若工具具備影片剪輯能力，先輸出可供預覽的初稿；若不具備，請提供剪輯清單，清楚標示尚未實際剪出影片，不要宣稱已完成剪輯。</pre></div>
+    </div>
+
+    <div class="cmd">
+      <div class="no">05</div>
+      <h3>發片前檢查</h3>
+      <div class="do">發之前讓 AI 當第一個觀眾，從頭看一遍，給你 3 個具體修改點。</div>
+      <div class="codebox"><div class="bar"><span>指令 ⑤ 發片前檢查</span><button data-copy>複製</button></div>
+      <pre>請以一般觀眾的角度檢查這支影片：開頭是否吸引人、內容是否清楚、節奏是否拖沓、結尾的下一步是否明確。請給我 3 個具體修改建議，標示對應片段與原因。若你只能讀逐字稿，請只評論內容結構，將畫面、聲音、字幕同步與剪接流暢度列為需人工確認，勿假裝看過影片。</pre></div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>指令給你了，整套流程我帶你跑一遍</h2>
+    <p>這 5 條讓你剪得更快。要把「錄音 → 成片」這整套接起來、搭上真的剪輯工具，我在奇點研究所帶你一步一步做。</p>
+    <a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a>
+  </section>
+
+  <section class="section">
+    <div class="lbl">進來你會拿到</div>
+    <ul class="getlist">
+      <li>AI 剪片完整工作流（含剪輯台怎麼接上你的 Claude）</li>
+      <li>AI ＋ 自媒體的完整變現工作流，每週更新</li>
+      <li>輪播生成器、剪輯台，一個人也能把內容做完</li>
+      <li>一群跟你一樣、正在用 AI 翻身的人</li>
+    </ul>
+    <div style="text-align:center;margin-top:22px"><a class="btn" href="https://www.skool.com/d11-lab/about" target="_blank" rel="noopener">加入 奇點研究所 × D11 →</a></div>
+  </section>
+
+  <footer>
+    <div class="fn">傑森所長 @jasonxtsai</div>
+    <div class="fh">Instagram：@jasonxtsai　／　Threads：@jasonxtsai</div>
+    <div class="dis">※ 指令反映撰寫當下的用法，實際剪輯能力依你所用的 AI 工具而定。AI 回饋僅供參考，成品以你自己檢查過的影片為準。</div>
+  </footer>
+</div>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pre = btn.closest('.codebox').querySelector('pre'); var txt = pre.innerText;
+      function ok(){ btn.textContent='已複製'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='複製'; btn.classList.remove('done'); },1600); }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok).catch(function(){ sel(pre); }); } else { sel(pre); }
+      function sel(node){ var r=document.createRange(); r.selectNodeContents(node); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); try{document.execCommand('copy'); ok();}catch(e){} }
+    });
+  });
+</script>
+</body>
+</html>
