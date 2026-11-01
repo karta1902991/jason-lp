@@ -45,6 +45,18 @@
   .step p{color:var(--ink2);font-size:15.5px}
   .step .ex{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:14px;font-size:14.5px;color:var(--ink2)}
   .step .ex b{color:var(--ink)}
+  .codebox{background:#282420;border-radius:12px;overflow:hidden;margin:14px 0}
+  .codebox .bar{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#211d19;border-bottom:1px solid #352f28}
+  .codebox .bar span{color:#b9ad97;font-size:12px;letter-spacing:.08em;font-weight:600}
+  .codebox button{background:var(--gold);color:#241c08;border:0;border-radius:7px;padding:5px 14px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .codebox button.done{background:#3f7a4a;color:#fff}
+  .codebox pre{margin:0;padding:15px 16px 17px;color:#efe7d6;font-family:ui-monospace,"JetBrains Mono",monospace;font-size:13.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+  .ex-flow{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:18px}
+  .ex-flow .row{display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--card)}
+  .ex-flow .row:last-child{border-bottom:0}
+  .ex-flow .k{font-weight:800;color:var(--gold);font-size:13px;min-width:66px;padding-top:2px}
+  .ex-flow .v{font-size:15px;color:var(--ink)}
+  .ex-flow .v b{font-weight:700}
   .cta{background:#282420;color:#f4ecdd;border-radius:18px;padding:34px 28px;margin:46px 0;text-align:center}
   .cta h2{color:#fff;margin-bottom:10px}.cta p{color:#c9bca3;font-size:15.5px;max-width:520px;margin:0 auto 22px}
   .btn{display:inline-block;background:var(--gold);color:#241c08;font-weight:800;font-size:16px;padding:15px 30px;border-radius:999px;text-decoration:none}
@@ -112,6 +124,36 @@
     </div>
   </section>
 
+  <section class="section">
+    <div class="lbl">看一個完整的</div>
+    <h2>一條龍走一遍</h2>
+    <p>假設你要送一份「IG 選題對照表」，整套長這樣：</p>
+    <div class="ex-flow">
+      <div class="row"><div class="k">貼文那句</div><div class="v">「這份我自己在用的<b>選題對照表</b>，留言『<b>清單</b>』，我私訊你。」</div></div>
+      <div class="row"><div class="k">有人留言</div><div class="v">對方在底下留一個「清單」。</div></div>
+      <div class="row"><div class="k">自動私訊</div><div class="v">工具偵測到關鍵字，<b>立刻</b>私訊他下面那段話（含檔案連結）。</div></div>
+      <div class="row"><div class="k">下一步</div><div class="v">私訊最後一句，把他引到你的社群／課，名單同時進你的後台。</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="lbl">直接拿去改</div>
+    <h2>自動私訊範本</h2>
+    <p>這是我自己在用的格式：<b>一句招呼 → 東西 → 一個下一步</b>。把＿＿換成你的，貼進工具就能用。</p>
+    <div class="codebox">
+      <div class="bar"><span>自動私訊 DM 範本</span><button data-copy>複製</button></div>
+      <pre>嘿，看到你留言「＿＿」🙌
+
+這是我答應你的【＿＿（東西名稱）】：
+👉 ＿＿（連結）
+
+這份先拿去用。如果你想把「＿＿（更大的目標，例如：一個人用 AI 把內容做完）」整套練起來，我都放在這 👉 ＿＿（你的社群／課連結）
+
+有問題直接回我這則就好。</pre>
+    </div>
+    <div class="how" style="padding:0"><div class="tip">⚠️ 三個帳號安全守則：① 只回「有留言的人」，別主動私訊陌生人。② 第一則別放太多連結、別像廣告。③ 關鍵字挑特別一點的（「清單」比「好」安全），避免誤觸亂發。</div></div>
+  </section>
+
   <section class="cta">
     <h2>工具會設，難的是「送什麼、怎麼接到收錢」</h2>
     <p>設定不難，真正決定成敗的是你送的東西夠不夠好、下一步有沒有接到變現。這整套「送什麼 → 自動收 → 接到成交」我在奇點研究所帶你設計。</p>
@@ -135,5 +177,15 @@
     <div class="dis">※ 自動私訊功能與規則依各平台與工具當下政策而定，請依官方條款使用，本頁內容僅供參考。</div>
   </footer>
 </div>
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pre = btn.closest('.codebox').querySelector('pre'); var txt = pre.innerText;
+      function ok(){ btn.textContent='已複製'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='複製'; btn.classList.remove('done'); },1600); }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok).catch(function(){ sel(pre); }); } else { sel(pre); }
+      function sel(node){ var r=document.createRange(); r.selectNodeContents(node); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); try{document.execCommand('copy'); ok();}catch(e){} }
+    });
+  });
+</script>
 </body>
 </html>
